@@ -1,12 +1,25 @@
-import { Controller, Get } from '@nestjs/common';
-import { AppService } from './app.service';
+import { Controller, Request, Post, Body, UseGuards } from '@nestjs/common';
+import { AuthService } from 'src/auth/auth.service';
+import { UsersService } from './users/users.service';
+import { CreateUserDto } from './users/dto/create-user.dto';
+import { AuthGuard } from '@nestjs/passport';
+import { create } from 'domain';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(
+    private readonly usersService: UsersService,
+    private authService: AuthService
+  ) {}
 
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  @Post('auth/register')
+  register(@Body() CreateUserDto: CreateUserDto) {
+    return this.usersService.register(CreateUserDto);
+  }
+
+  @UseGuards(AuthGuard('local'))
+  @Post('auth/login')
+  async login(@Request() req) {
+    return this.authService.login(req.user)
   }
 }
