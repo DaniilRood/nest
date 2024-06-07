@@ -9,7 +9,7 @@ import { create } from 'domain';
 export class AppController {
   constructor(
     private readonly usersService: UsersService,
-    private authService: AuthService
+    private authService: AuthService,
   ) {}
 
   @Post('auth/register')
@@ -20,6 +20,6 @@ export class AppController {
   @UseGuards(AuthGuard('local'))
   @Post('auth/login')
   async login(@Request() req) {
-    return this.authService.login(req.user)
+    return this.authService.login(req.user);
   }
 }

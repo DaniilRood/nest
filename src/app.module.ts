@@ -4,14 +4,13 @@ import { AppService } from './app.service';
 import { CategoryModule } from './category/category.module';
 import { PostsModule } from './posts/posts.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { DataSource  } from 'typeorm';
+import { DataSource } from 'typeorm';
 import { Category } from './category/entities/category.entity';
 import { ConfigModule } from '@nestjs/config';
 import { UsersModule } from './users/users.module';
 import { Post } from './posts/entities/post.entity';
 import { User } from './users/entities/user.entity';
 import { AuthModule } from './auth/auth.module';
-
 
 @Module({
   imports: [
