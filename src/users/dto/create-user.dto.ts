@@ -1,9 +1,15 @@
+import * as Joi from 'joi';
+
 export class CreateUserDto {
-  email: any;
-  password(
-    password: any,
-    password1: (password: string, password1: any) => void,
-  ) {
-    throw new Error('Method not implemented.');
-  }
+  first_name: string;
+  last_name: string;
+  email: string;
+  password: string;
 }
+
+export const CreateUserSchema = Joi.object({
+  first_name: Joi.string().required(),
+  last_name: Joi.string().required(),
+  email: Joi.string().email().required(),
+  password: Joi.string().required().min(6),
+})
