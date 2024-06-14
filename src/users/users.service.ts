@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
-import { Repository } from 'typeorm';
+import { FindOptionsWhere, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
@@ -20,7 +20,7 @@ export class UsersService {
   }
 
   async login(data: CreateUserDto) {
-    const user = await this.repository.findOneBy({ email: data.email });
+    const user = await this.repository.findOneBy({ email: data.email } as FindOptionsWhere<User>);
     if (!user) {
       return false;
     }
@@ -32,7 +32,7 @@ export class UsersService {
   }
 
   findOne(email: string) {
-    return this.repository.findOneBy({ email });
+    return this.repository.findOneBy({ email } as FindOptionsWhere<User>);
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
